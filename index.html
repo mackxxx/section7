@@ -21,9 +21,17 @@
   
   <script>
     var ajax = new XMLHttpRequest(); //ajax通信をするためのオブジェクト
-    ajax.open('GET','https://h2o-space.com/htmlbook/images.php');
-    ajax.responseType = 'json';
+    ajax.open('GET','https://h2o-space.com/htmlbook/images.php'); //通信先を指定する
+    ajax.responseType = 'json'; //レスポンス形式でjsonを指定
     ajax.send(null);
+
+    ajax.onreadystatechange = function(){ //ajax通信状態を表示する
+        if (ajax.readyState === XMLHttpRequest.DONE && ajax.status === 200){　//
+          for (var i=0; i<this.response.length; i++){ //ajaxというオブジェクトがthis
+            alert(this.response[i].path);
+          }
+        }
+    };
   </script>
 </body>
 </html>
