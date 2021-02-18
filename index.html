@@ -26,12 +26,26 @@
     ajax.send(null);
 
     ajax.onreadystatechange = function(){ //ajax通信状態を表示する
-        if (ajax.readyState === XMLHttpRequest.DONE && ajax.status === 200){　//
-          for (var i=0; i<this.response.length; i++){ //ajaxというオブジェクトがthis
-            alert(this.response[i].path);
-          }
+      if (ajax.readyState === XMLHttpRequest.DONE && ajax.status === 200){　//通信が成功して正常に終了したときにstatus=200になるから条件を負荷
+        for (var i=0; i<this.response.length; i++){ //ajaxというオブジェクトがthis
+          var data = this.response[i];
+            
+          var img = document.createElement('img');
+          img.setAttribute('src', data.path);
+
+          var caption = document.createElement('div');
+          caption.className = 'inner';
+          caption.innerHTML = '<p>' + data.caption + '<span>' + data.name + '</span></P>';
+          
+          var div = document.createElement('div');
+          div.className = 'photo';
+          div.appendChild(img);
+          div.appendChild(caption);
+
+          document.getElementById('img_unit').appendChild(div);      
         }
-    };
+     }
+  };
   </script>
 </body>
 </html>
